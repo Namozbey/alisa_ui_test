@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { forwardRef } from 'react'
 import PropTypes from 'prop-types'
 
 import { getColorShade } from '../tailwind'
@@ -6,7 +6,7 @@ import { withTheme } from '../theme'
 
 import Paragraph from './Paragraph'
 
-const BrandText = ({ theme, textOnly, type, ...rest }) => {
+const BrandText = forwardRef(({ theme, textOnly, type, ...rest }, ref) => {
   const alertProps = !textOnly
     ? {
         bg: getColorShade(theme.brandColors[type], '100'),
@@ -21,13 +21,14 @@ const BrandText = ({ theme, textOnly, type, ...rest }) => {
     <Paragraph
       {...rest}
       brand
+      ref={ref}
       rounded={theme.radius}
       text={getColorShade(theme.brandColors[type], 1)}
       m={{ b: theme.spacing.sm }}
       {...alertProps}
     />
   )
-}
+})
 
 BrandText.propTypes = {
   theme: PropTypes.shape({}).isRequired,

@@ -1,98 +1,103 @@
-import React from 'react'
+import React, { forwardRef } from 'react'
 import PropTypes from 'prop-types'
 
 import { withTheme } from '../theme'
 import { Touchable } from '../primitives'
 import { getColorShade } from '../tailwind'
 
-const Button = ({
-  theme,
-  is,
-  children,
-  color,
-  type,
-  buttonStyle,
-  disabled,
-  large,
-  small,
-  fullWidth,
-  bg,
-  text,
-  border,
-  brand,
-  ...rest
-}) => {
-  const props = {
-    border: [true, 'transparent'],
-    leading: 'tight',
-    p: { x: theme.spacing.md, y: theme.spacing.sm },
-    rounded: theme.radius,
-  }
+const Button = forwardRef(
+  (
+    {
+      theme,
+      is,
+      children,
+      color,
+      type,
+      buttonStyle,
+      disabled,
+      large,
+      small,
+      fullWidth,
+      bg,
+      text,
+      border,
+      brand,
+      ...rest
+    },
+    ref,
+  ) => {
+    const props = {
+      border: [true, 'transparent'],
+      leading: 'tight',
+      p: { x: theme.spacing.md, y: theme.spacing.sm },
+      rounded: theme.radius,
+    }
 
-  if (large) {
-    props.p = { x: theme.spacing.lg, y: theme.spacing.md }
-  } else if (small) {
-    props.p = { x: theme.spacing.sm, y: theme.spacing.sm / 2 }
-  }
+    if (large) {
+      props.p = { x: theme.spacing.lg, y: theme.spacing.md }
+    } else if (small) {
+      props.p = { x: theme.spacing.sm, y: theme.spacing.sm / 2 }
+    }
 
-  switch (buttonStyle) {
-    case 'fill':
-      props.bg = brand ? theme.brandColors[brand] : bg
-      props.text = brand ? theme.textColors.on[brand] : text
-      props['bg-hocus'] = getColorShade(
-        brand ? theme.brandColors[brand] : bg,
-        theme.highlightOffset,
-      )
-      break
-    case 'outline':
-      // eslint-disable-next-line react/prop-types
-      props.border.push(brand ? theme.brandColors[brand] : border)
-      props.text = brand ? theme.brandColors[brand] : border
-      props['bg-hocus'] = brand ? theme.brandColors[brand] : border
-      props['text-hocus'] = brand ? theme.textColors.on[brand] : text
-      break
-    case 'text':
-      props.text = brand ? theme.brandColors[brand] : text
-      props['bg-hocus'] = `${getColorShade(
-        brand ? theme.brandColors[brand] : text,
-        '100',
-      )}`
-      break
-    case 'link':
-      props.rounded = undefined
-      props.leading = 'normal'
-      props.p = 0
-      props.underline = true
-      props.text = brand ? theme.brandColors[brand] : text
-      props['text-hocus'] = getColorShade(
-        brand ? theme.brandColors[brand] : text,
-        theme.highlightOffset,
-      )
-      break
-    default:
-      break
-  }
+    switch (buttonStyle) {
+      case 'fill':
+        props.bg = brand ? theme.brandColors[brand] : bg
+        props.text = brand ? theme.textColors.on[brand] : text
+        props['bg-hocus'] = getColorShade(
+          brand ? theme.brandColors[brand] : bg,
+          theme.highlightOffset,
+        )
+        break
+      case 'outline':
+        // eslint-disable-next-line react/prop-types
+        props.border.push(brand ? theme.brandColors[brand] : border)
+        props.text = brand ? theme.brandColors[brand] : border
+        props['bg-hocus'] = brand ? theme.brandColors[brand] : border
+        props['text-hocus'] = brand ? theme.textColors.on[brand] : text
+        break
+      case 'text':
+        props.text = brand ? theme.brandColors[brand] : text
+        props['bg-hocus'] = `${getColorShade(
+          brand ? theme.brandColors[brand] : text,
+          '100',
+        )}`
+        break
+      case 'link':
+        props.rounded = undefined
+        props.leading = 'normal'
+        props.p = 0
+        props.underline = true
+        props.text = brand ? theme.brandColors[brand] : text
+        props['text-hocus'] = getColorShade(
+          brand ? theme.brandColors[brand] : text,
+          theme.highlightOffset,
+        )
+        break
+      default:
+        break
+    }
 
-  if (is === 'button') {
-    props.type = type
-  } else {
-    props.role = 'button'
-  }
+    if (is === 'button') {
+      props.type = type
+    } else {
+      props.role = 'button'
+    }
 
-  if (disabled) {
-    props.opacity = 50
-  }
+    if (disabled) {
+      props.opacity = 50
+    }
 
-  if (fullWidth) {
-    props.w = 'full'
-  }
+    if (fullWidth) {
+      props.w = 'full'
+    }
 
-  return (
-    <Touchable is={is} inlineBlock {...props} {...rest}>
-      {children}
-    </Touchable>
-  )
-}
+    return (
+      <Touchable is={is} ref={ref} inlineBlock {...props} {...rest}>
+        {children}
+      </Touchable>
+    )
+  },
+)
 
 Button.propTypes = {
   theme: PropTypes.shape({}).isRequired,

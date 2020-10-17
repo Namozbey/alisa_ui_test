@@ -1,10 +1,12 @@
-import React from 'react'
+import React, { forwardRef } from 'react'
 import PropTypes from 'prop-types'
 
 import { Title } from '../typography'
 
-const ContentTitle = ({ content: { id }, visuallyHidden, ...rest }) => (
-  <Title id={id} visuallyHidden={visuallyHidden} {...rest} />
+const ContentTitle = forwardRef(
+  ({ content: { id }, visuallyHidden, ...rest }, ref) => (
+    <Title id={id} visuallyHidden={visuallyHidden} {...rest} />
+  ),
 )
 
 ContentTitle.propTypes = {

@@ -1,10 +1,10 @@
-import React from 'react'
+import React, { forwardRef } from 'react'
 import PropTypes from 'prop-types'
 
 import { Box } from '../primitives'
 import { FillButton } from '../button'
 
-const SkipLink = ({ children, href, ...rest }) => (
+const SkipLink = forwardRef(({ children, href, ...rest }, ref) => (
   <Box visuallyHiddenFocusable>
     <FillButton
       is="a"
@@ -13,12 +13,13 @@ const SkipLink = ({ children, href, ...rest }) => (
       absolute
       rounded="none"
       href={href}
+      ref={ref}
       {...rest}
     >
       {children || 'Skip to main content'}
     </FillButton>
   </Box>
-)
+))
 
 SkipLink.propTypes = {
   children: PropTypes.node,

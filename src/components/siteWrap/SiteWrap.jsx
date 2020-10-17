@@ -1,11 +1,11 @@
-import React from 'react'
+import React, { forwardRef } from 'react'
 import PropTypes from 'prop-types'
 
 import { Flex, Box } from '../primitives'
 import Footer, { component as FooterComponent } from '../footer/Footer'
 import { withTheme } from '../theme'
 
-const SiteWrap = ({ is, theme, children, ...rest }) => {
+const SiteWrap = forwardRef(({ is, theme, children, ...rest }, ref) => {
   let footer
 
   React.Children.forEach(children, child => {
@@ -25,6 +25,7 @@ const SiteWrap = ({ is, theme, children, ...rest }) => {
       minH="screen"
       leading="normal"
       font={theme.text.family.body}
+      ref={ref}
       text={[theme.text.size.body[1], theme.textColors.body]}
       {...rest}
     >
@@ -39,7 +40,7 @@ const SiteWrap = ({ is, theme, children, ...rest }) => {
       </Box>
     </Flex>
   )
-}
+})
 
 SiteWrap.propTypes = {
   is: PropTypes.oneOfType([PropTypes.string, PropTypes.func, PropTypes.object]),

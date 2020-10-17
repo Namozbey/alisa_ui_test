@@ -1,11 +1,11 @@
-import React from 'react'
+import React, { forwardRef } from 'react'
 import PropTypes from 'prop-types'
 
 import { Box } from '../primitives'
 import { withTheme } from '../theme'
 import { Container } from '../container'
 
-const Footer = ({ theme, is, children, ...rest }) => (
+const Footer = forwardRef(({ theme, is, children, ...rest }, ref) => (
   <Box
     is={is}
     role="contentinfo"
@@ -16,7 +16,7 @@ const Footer = ({ theme, is, children, ...rest }) => (
   >
     <Container padding>{children}</Container>
   </Box>
-)
+))
 
 Footer.propTypes = {
   theme: PropTypes.shape({}).isRequired,

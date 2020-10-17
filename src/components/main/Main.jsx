@@ -1,13 +1,13 @@
-import React from 'react'
+import React, { forwardRef } from 'react'
 import PropTypes from 'prop-types'
 
 import { Box } from '../primitives'
 
-const Main = ({ children, is, id, ...rest }) => (
+const Main = forwardRef(({ children, is, id, ...rest }, ref) => (
   <Box is={is} id={id} role="main" {...rest}>
     {children}
   </Box>
-)
+))
 
 Main.propTypes = {
   children: PropTypes.node,

@@ -1,46 +1,45 @@
-import React from 'react'
+import React, { forwardRef } from 'react'
 import PropTypes from 'prop-types'
 
 import { withTheme } from '../theme'
 import { Touchable } from '../primitives'
 
-const NavItem = ({
-  theme,
-  is,
-  children,
-  header: { style, screen },
-  active,
-  ...rest
-}) => {
-  const textColor = style.text || theme.textColors.on.primary
-  const bgColor = style.bg || theme.brandColors.primary
+const NavItem = forwardRef(
+  (
+    { theme, is, children, header: { style, screen }, active, ...rest },
+    ref,
+  ) => {
+    const textColor = style.text || theme.textColors.on.primary
+    const bgColor = style.bg || theme.brandColors.primary
 
-  const responsive = screen
-    ? {
-        [`m-${screen}`]: { t: 0, r: theme.spacing.sm },
-      }
-    : {}
+    const responsive = screen
+      ? {
+          [`m-${screen}`]: { t: 0, r: theme.spacing.sm },
+        }
+      : {}
 
-  return (
-    <Touchable
-      is={is}
-      focusable
-      text={!active ? style.text : style.bg}
-      bg={active ? textColor : undefined}
-      bg-hocus={textColor}
-      text-hocus={bgColor}
-      p={{ x: theme.spacing.md, y: theme.spacing.sm }}
-      m={{ t: theme.spacing.sm }}
-      rounded={theme.radius}
-      block
-      aria-current={active ? 'page' : undefined}
-      {...responsive}
-      {...rest}
-    >
-      {children}
-    </Touchable>
-  )
-}
+    return (
+      <Touchable
+        is={is}
+        focusable
+        text={!active ? style.text : style.bg}
+        bg={active ? textColor : undefined}
+        bg-hocus={textColor}
+        text-hocus={bgColor}
+        p={{ x: theme.spacing.md, y: theme.spacing.sm }}
+        m={{ t: theme.spacing.sm }}
+        rounded={theme.radius}
+        block
+        aria-current={active ? 'page' : undefined}
+        ref={ref}
+        {...responsive}
+        {...rest}
+      >
+        {children}
+      </Touchable>
+    )
+  },
+)
 
 NavItem.propTypes = {
   theme: PropTypes.shape({}).isRequired,

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { forwardRef } from 'react'
 import PropTypes from 'prop-types'
 
 import { withTheme } from '../theme'
@@ -6,29 +6,25 @@ import { Text } from '../primitives'
 import { propTypes } from '../tailwind'
 import { getAsArray } from '../utils'
 
-const Paragraph = ({
-  theme,
-  children,
-  is,
-  size,
-  lead,
-  brand,
-  paragraph,
-  text,
-  ...rest
-}) => (
-  <Text
-    is={is}
-    text={[
-      (size || lead) &&
-        theme.text.size.body[(lead ? theme.text.size.body.length : size) - 1],
-      ...getAsArray(text),
-    ]}
-    m={{ b: theme.spacing.md }}
-    {...rest}
-  >
-    {children}
-  </Text>
+const Paragraph = forwardRef(
+  (
+    { theme, children, is, size, lead, brand, paragraph, text, ...rest },
+    ref,
+  ) => (
+    <Text
+      is={is}
+      ref={ref}
+      text={[
+        (size || lead) &&
+          theme.text.size.body[(lead ? theme.text.size.body.length : size) - 1],
+        ...getAsArray(text),
+      ]}
+      m={{ b: theme.spacing.md }}
+      {...rest}
+    >
+      {children}
+    </Text>
+  ),
 )
 
 Paragraph.propTypes = {

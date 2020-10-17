@@ -1,43 +1,49 @@
-import React from 'react'
+import React, { forwardRef } from 'react'
 import PropTypes from 'prop-types'
 
 import Base from './Base'
 import { propTypes } from '../tailwind'
 import { getAsArray } from '../utils'
 
-const Text = ({
-  children,
-  is,
-  bold,
-  font,
-  text,
-  color,
-  size,
-  weight,
-  tight,
-  loose,
-  leading,
-  ...rest
-}) => {
-  const fontValue = [...getAsArray(font), bold ? 'bold' : weight]
-  const textValue = [...getAsArray(text), color, size]
-  let leadingValue = leading
-  if (tight || loose) {
-    leadingValue = tight ? 'tight' : 'loose'
-  }
+const Text = forwardRef(
+  (
+    {
+      children,
+      is,
+      bold,
+      font,
+      text,
+      color,
+      size,
+      weight,
+      tight,
+      loose,
+      leading,
+      ...rest
+    },
+    ref,
+  ) => {
+    const fontValue = [...getAsArray(font), bold ? 'bold' : weight]
+    const textValue = [...getAsArray(text), color, size]
+    let leadingValue = leading
+    if (tight || loose) {
+      leadingValue = tight ? 'tight' : 'loose'
+    }
 
-  return (
-    <Base
-      is={is}
-      font={fontValue.filter(value => !!value)}
-      text={textValue.filter(value => !!value)}
-      leading={leadingValue}
-      {...rest}
-    >
-      {children}
-    </Base>
-  )
-}
+    return (
+      <Base
+        is={is}
+        font={fontValue.filter(value => !!value)}
+        text={textValue.filter(value => !!value)}
+        leading={leadingValue}
+        ref={ref}
+        {...rest}
+      >
+        {children}
+      </Base>
+    )
+  },
+)
 
 Text.propTypes = {
   children: PropTypes.node,

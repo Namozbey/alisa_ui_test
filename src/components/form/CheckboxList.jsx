@@ -1,6 +1,8 @@
-import React from 'react'
+import React, { forwardRef } from 'react'
 import OptionList from './OptionList'
 
-const CheckboxList = props => <OptionList {...props} checkbox />
+const CheckboxList = forwardRef((props, ref) => (
+  <OptionList ref={ref} {...props} checkbox />
+))
 
 export default CheckboxList

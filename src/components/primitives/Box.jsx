@@ -1,17 +1,25 @@
-import React from 'react'
+import React, { forwardRef } from 'react'
 import PropTypes from 'prop-types'
 
 import Base from './Base'
 
-const Box = ({ is, children, inline, inlineBlock, ...rest }) => {
-  const el = is === 'div' && (inline || inlineBlock) ? 'span' : is
+const Box = forwardRef(
+  ({ is, children, inline, inlineBlock, ...rest }, ref) => {
+    const el = is === 'div' && (inline || inlineBlock) ? 'span' : is
 
-  return (
-    <Base is={el} inline={inline} inlineBlock={inlineBlock} {...rest}>
-      {children}
-    </Base>
-  )
-}
+    return (
+      <Base
+        is={el}
+        inline={inline}
+        inlineBlock={inlineBlock}
+        ref={ref}
+        {...rest}
+      >
+        {children}
+      </Base>
+    )
+  },
+)
 
 Box.propTypes = {
   is: PropTypes.oneOfType([PropTypes.string, PropTypes.func, PropTypes.object]),

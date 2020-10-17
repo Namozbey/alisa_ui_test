@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { forwardRef } from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
 
@@ -8,7 +8,7 @@ import tailwindProps, { propTypes } from './tailwindProps'
 import getTailwindClassNames from './getTailwindClassNames'
 
 const withTailwind = (Component, { ignore = [] } = {}) => {
-  const WithTailwind = ({ className, ...props }) => (
+  const WithTailwind = forwardRef(({ className, ...props }, ref) => (
     <Component
       {...filterProps(
         props,
@@ -18,8 +18,9 @@ const withTailwind = (Component, { ignore = [] } = {}) => {
         getTailwindClassNames(props, { ignore }),
         className,
       ])}
+      ref={ref}
     />
-  )
+  ))
 
   WithTailwind.displayName = `WithTailwind(${Component.displayName})`
 

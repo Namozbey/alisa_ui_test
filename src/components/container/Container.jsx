@@ -1,19 +1,21 @@
-import React from 'react'
+import React, { forwardRef } from 'react'
 import PropTypes from 'prop-types'
 
 import { withTheme } from '../theme'
 import { Box } from '../primitives'
 
-const Container = ({ theme, is, children, leftAlign, padding, ...rest }) => (
-  <Box
-    is={is}
-    m={!leftAlign ? { x: 'auto' } : undefined}
-    p={padding ? { x: theme.spacing.md } : undefined}
-    container
-    {...rest}
-  >
-    {children}
-  </Box>
+const Container = forwardRef(
+  ({ theme, is, children, leftAlign, padding, ...rest }, ref) => (
+    <Box
+      is={is}
+      m={!leftAlign ? { x: 'auto' } : undefined}
+      p={padding ? { x: theme.spacing.md } : undefined}
+      container
+      {...rest}
+    >
+      {children}
+    </Box>
+  ),
 )
 
 Container.propTypes = {

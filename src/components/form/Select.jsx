@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { forwardRef } from 'react'
 import PropTypes from 'prop-types'
 
 import { withTheme } from '../theme'
@@ -18,69 +18,74 @@ const ExpandMore = props => (
   </svg>
 )
 
-const Select = ({
-  theme,
-  is,
-  field,
-  children,
-  id,
-  name,
-  type,
-  disabled,
-  readOnly,
-  invalid,
-  placeholder,
-  options,
-  icon,
-  ...rest
-}) => {
-  const describedBy = [field.errorId, field.helpId].filter(by => by)
-  const isInvalid = field.invalid || invalid
+const Select = forwardRef(
+  (
+    {
+      theme,
+      is,
+      field,
+      children,
+      id,
+      name,
+      type,
+      disabled,
+      readOnly,
+      invalid,
+      placeholder,
+      options,
+      icon,
+      ...rest
+    },
+    ref,
+  ) => {
+    const describedBy = [field.errorId, field.helpId].filter(by => by)
+    const isInvalid = field.invalid || invalid
 
-  return (
-    <Box relative m={{ b: theme.spacing.sm }}>
-      <Touchable
-        is={is}
-        appearance="none"
-        bg="white"
-        rounded={theme.radius}
-        text={theme.textColors.body}
-        p={{ l: theme.spacing.md, r: theme.spacing.lg, y: theme.spacing.sm }}
-        border={!isInvalid ? true : [true, theme.brandColors.danger]}
-        w="full"
-        leading="tight"
-        id={field.inputId || id || name}
-        name={name}
-        type={type}
-        disabled={field.disabled || disabled}
-        readOnly={readOnly}
-        aria-invalid={isInvalid || undefined}
-        aria-describedby={
-          describedBy.length ? describedBy.join(' ') : undefined
-        }
-        {...rest}
-      >
-        {!!placeholder && <option value="">{placeholder}</option>}
-        {options.map(option => (
-          <option key={`${name}-${option.value}`} value={option.value}>
-            {option.label}
-          </option>
-        ))}
-      </Touchable>
-      <Box
-        absolute
-        inset="y-0"
-        right={0}
-        flex
-        items="center"
-        p={{ x: theme.spacing.sm }}
-        pointerEvents="none"
-      >
-        <Box is={icon} h={6} w={6} />
+    return (
+      <Box relative m={{ b: theme.spacing.sm }} ref={ref}>
+        <Touchable
+          is={is}
+          appearance="none"
+          bg="white"
+          rounded={theme.radius}
+          text={theme.textColors.body}
+          p={{ l: theme.spacing.md, r: theme.spacing.lg, y: theme.spacing.sm }}
+          border={!isInvalid ? true : [true, theme.brandColors.danger]}
+          w="full"
+          leading="tight"
+          id={field.inputId || id || name}
+          name={name}
+          type={type}
+          disabled={field.disabled || disabled}
+          readOnly={readOnly}
+          aria-invalid={isInvalid || undefined}
+          aria-describedby={
+            describedBy.length ? describedBy.join(' ') : undefined
+          }
+          {...rest}
+        >
+          {!!placeholder && <option value="">{placeholder}</option>}
+          {options.map(option => (
+            <option key={`${name}-${option.value}`} value={option.value}>
+              {option.label}
+            </option>
+          ))}
+        </Touchable>
+        <Box
+          absolute
+          inset="y-0"
+          right={0}
+          flex
+          items="center"
+          p={{ x: theme.spacing.sm }}
+          pointerEvents="none"
+        >
+          <Box is={icon} h={6} w={6} />
+        </Box>
       </Box>
-    </Box>
-  )
-}
+    )
+  },
+)
 
 Select.propTypes = {
   theme: PropTypes.shape({}).isRequired,

@@ -1,33 +1,24 @@
-import React, { PureComponent } from 'react'
+import React, { forwardRef } from 'react'
 import PropTypes from 'prop-types'
 
 import Base from './Base'
 
 const focusableElements = ['input', 'select', 'textarea', 'button', 'a']
 
-class Touchable extends PureComponent {
-  constructor(props) {
-    super(props)
-
-    this.handleKeyPress = this.handleKeyPress.bind(this)
-  }
-
-  handleKeyPress(e) {
-    const { onTouch } = this.props
-    if (
-      onTouch &&
-      ((e.key &&
-        (e.key === 'Enter' || e.key === ' ' || e.key === 'Spacebar')) ||
-        (e.keyCode && (e.keyCode === 13 || e.keyCode === 32)))
-    ) {
-      e.preventDefault()
-      onTouch(e)
-    }
-  }
-
-  render() {
-    const { is, children, tabIndex, disabled, onTouch, ...rest } = this.props
+const Touchable = forwardRef(
+  ({ is, children, tabIndex, disabled, onTouch, ...rest }, ref) => {
     const isSemantic = focusableElements.includes(is)
+    const handleKeyPress = e => {
+      if (
+        onTouch &&
+        ((e.key &&
+          (e.key === 'Enter' || e.key === ' ' || e.key === 'Spacebar')) ||
+          (e.keyCode && (e.keyCode === 13 || e.keyCode === 32)))
+      ) {
+        e.preventDefault()
+        onTouch(e)
+      }
+    }
 
     return (
       <Base
@@ -42,14 +33,15 @@ class Touchable extends PureComponent {
         disabled={disabled}
         aria-disabled={disabled || undefined}
         onClick={onTouch}
-        onKeyPress={!isSemantic && !disabled ? this.handleKeyPress : undefined}
+        onKeyPress={!isSemantic && !disabled ? handleKeyPress : undefined}
+        ref={ref}
         {...rest}
       >
         {children}
       </Base>
     )
-  }
-}
+  },
+)
 
 Touchable.propTypes = {
   is: PropTypes.oneOfType([PropTypes.string, PropTypes.func, PropTypes.object]),

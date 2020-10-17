@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { forwardRef } from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
 
@@ -6,37 +6,31 @@ import { withTheme } from '../theme'
 import { filterProps } from '../utils'
 import { getTailwindClassNames, tailwindProps, propTypes } from '../tailwind'
 
-const Base = ({
-  theme,
-  is,
-  children,
-  className,
-  focusable,
-  innerRef,
-  ...rest
-}) => {
-  const Component = is
+const Base = forwardRef(
+  ({ theme, is, children, className, focusable, innerRef, ...rest }, ref) => {
+    const Component = is
 
-  return (
-    <Component
-      {...filterProps(rest, tailwindProps)}
-      className={classnames(
-        getTailwindClassNames(
-          {
-            ...rest,
-            'outine-focus': 'none',
-            'shadow-focus': 'outline',
-          },
-          { prefix: theme.prefix },
-        ),
-        className,
-      )}
-      ref={innerRef}
-    >
-      {children}
-    </Component>
-  )
-}
+    return (
+      <Component
+        {...filterProps(rest, tailwindProps)}
+        className={classnames(
+          getTailwindClassNames(
+            {
+              ...rest,
+              'outine-focus': 'none',
+              'shadow-focus': 'outline',
+            },
+            { prefix: theme.prefix },
+          ),
+          className,
+        )}
+        ref={innerRef || ref}
+      >
+        {children}
+      </Component>
+    )
+  },
+)
 
 Base.propTypes = {
   theme: PropTypes.shape({}).isRequired,

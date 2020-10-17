@@ -1,45 +1,42 @@
-import React from 'react'
+import React, { forwardRef } from 'react'
 import PropTypes from 'prop-types'
 
 import { withTheme } from '../theme'
 import { Box } from '../primitives'
 
-const NavBrand = ({
-  theme,
-  header: { style, screen },
-  is,
-  children,
-  ...rest
-}) => {
-  const responsive = screen
-    ? {
-        [`m-${screen}`]: { r: theme.spacing.lg },
-      }
-    : {}
+const NavBrand = forwardRef(
+  ({ theme, header: { style, screen }, is, children, ...rest }, ref) => {
+    const responsive = screen
+      ? {
+          [`m-${screen}`]: { r: theme.spacing.lg },
+        }
+      : {}
 
-  const aria = !(typeof is === 'string' && is.startsWith('h'))
-    ? {
-        role: 'heading',
-        'aria-level': 1,
-      }
-    : {}
+    const aria = !(typeof is === 'string' && is.startsWith('h'))
+      ? {
+          role: 'heading',
+          'aria-level': 1,
+        }
+      : {}
 
-  return (
-    <Box
-      is={is}
-      inlineBlock
-      flex={[true, 'no-shrink']}
-      items="center"
-      h={12}
-      text={style.text || theme.textColors.on.primary}
-      {...responsive}
-      {...aria}
-      {...rest}
-    >
-      {children}
-    </Box>
-  )
-}
+    return (
+      <Box
+        is={is}
+        inlineBlock
+        flex={[true, 'no-shrink']}
+        items="center"
+        h={12}
+        text={style.text || theme.textColors.on.primary}
+        ref={ref}
+        {...responsive}
+        {...aria}
+        {...rest}
+      >
+        {children}
+      </Box>
+    )
+  },
+)
 
 NavBrand.propTypes = {
   theme: PropTypes.shape({}).isRequired,

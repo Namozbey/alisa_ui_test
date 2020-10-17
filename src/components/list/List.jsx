@@ -1,66 +1,72 @@
-import React from 'react'
+import React, { forwardRef } from 'react'
 import PropTypes from 'prop-types'
 
 import { Box } from '../primitives'
 import { withTheme } from '../theme'
 
-const List = ({
-  theme,
-  is,
-  children,
-  padding,
-  list,
-  inline,
-  justified,
-  fullWidth,
-  ordered,
-  listItemIs,
-  ...rest
-}) => {
-  let listStyle = list
-  if (listStyle === true) {
-    listStyle = ordered ? 'decimal' : 'disc'
-  }
+const List = forwardRef(
+  (
+    {
+      theme,
+      is,
+      children,
+      padding,
+      list,
+      inline,
+      justified,
+      fullWidth,
+      ordered,
+      listItemIs,
+      ...rest
+    },
+    ref,
+  ) => {
+    let listStyle = list
+    if (listStyle === true) {
+      listStyle = ordered ? 'decimal' : 'disc'
+    }
 
-  return (
-    <Box
-      is={ordered ? 'ol' : is}
-      m={{ b: theme.spacing.md }}
-      p={
-        listStyle
-          ? {
-              l: theme.spacing.md,
-            }
-          : undefined
-      }
-      flex={
-        justified ||
-        fullWidth ||
-        (inline ? [true, 'wrap', ...rest.flex] : rest.flex)
-      }
-      justify={justified ? 'between' : undefined}
-      list={listStyle}
-      {...rest}
-    >
-      {React.Children.map(
-        children,
-        child =>
-          child && (
-            <Box
-              is={listItemIs}
-              m={{
-                b: padding && !justified && !fullWidth && theme.spacing.sm,
-                r: inline && theme.spacing.sm,
-              }}
-              flex={fullWidth ? 'grow' : undefined}
-            >
-              {child}
-            </Box>
-          ),
-      )}
-    </Box>
-  )
-}
+    return (
+      <Box
+        is={ordered ? 'ol' : is}
+        m={{ b: theme.spacing.md }}
+        p={
+          listStyle
+            ? {
+                l: theme.spacing.md,
+              }
+            : undefined
+        }
+        flex={
+          justified ||
+          fullWidth ||
+          (inline ? [true, 'wrap', ...rest.flex] : rest.flex)
+        }
+        justify={justified ? 'between' : undefined}
+        list={listStyle}
+        ref={ref}
+        {...rest}
+      >
+        {React.Children.map(
+          children,
+          child =>
+            child && (
+              <Box
+                is={listItemIs}
+                m={{
+                  b: padding && !justified && !fullWidth && theme.spacing.sm,
+                  r: inline && theme.spacing.sm,
+                }}
+                flex={fullWidth ? 'grow' : undefined}
+              >
+                {child}
+              </Box>
+            ),
+        )}
+      </Box>
+    )
+  },
+)
 
 List.propTypes = {
   theme: PropTypes.shape({}).isRequired,

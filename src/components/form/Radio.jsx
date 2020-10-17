@@ -1,6 +1,8 @@
-import React from 'react'
+import React, { forwardRef } from 'react'
 import OptionInput from './OptionInput'
 
-const Radio = props => <OptionInput {...props} checkbox={false} />
+const Radio = forwardRef((props, ref) => (
+  <OptionInput {...props} checkbox={false} ref={ref} />
+))
 
 export default Radio

@@ -1,36 +1,39 @@
-import React from 'react'
+import React, { forwardRef } from 'react'
 import PropTypes from 'prop-types'
 
 import { withTheme } from '../theme'
 import { Flex } from '../primitives'
 
-const Row = ({ is, children, nowrap, gutter, theme, ...rest }) => {
-  const gutterSpacing =
-    gutter && (gutter === true ? theme.spacing.md : theme.spacing[gutter])
+const Row = forwardRef(
+  ({ is, children, nowrap, gutter, theme, ...rest }, ref) => {
+    const gutterSpacing =
+      gutter && (gutter === true ? theme.spacing.md : theme.spacing[gutter])
 
-  return (
-    <Flex
-      is={is}
-      wrap={!nowrap}
-      nm={
-        gutter
-          ? { l: gutterSpacing, b: !nowrap ? gutterSpacing : undefined }
-          : undefined
-      }
-      listReset
-      {...rest}
-    >
-      {gutter
-        ? React.Children.map(children, child =>
-            React.cloneElement(child, {
-              p: { l: gutterSpacing },
-              m: { b: gutterSpacing },
-            }),
-          )
-        : children}
-    </Flex>
-  )
-}
+    return (
+      <Flex
+        is={is}
+        wrap={!nowrap}
+        nm={
+          gutter
+            ? { l: gutterSpacing, b: !nowrap ? gutterSpacing : undefined }
+            : undefined
+        }
+        listReset
+        ref={ref}
+        {...rest}
+      >
+        {gutter
+          ? React.Children.map(children, child =>
+              React.cloneElement(child, {
+                p: { l: gutterSpacing },
+                m: { b: gutterSpacing },
+              }),
+            )
+          : children}
+      </Flex>
+    )
+  },
+)
 
 Row.propTypes = {
   theme: PropTypes.shape({}).isRequired,

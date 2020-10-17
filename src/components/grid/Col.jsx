@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { forwardRef } from 'react'
 import PropTypes from 'prop-types'
 
 import { Box } from '../primitives'
@@ -17,11 +17,11 @@ const getWidthProps = width => {
   return width === 'auto' ? { flex: 1 } : { w: width }
 }
 
-const Col = ({ is, children, w, ...rest }) => (
-  <Box is={is} {...getWidthProps(w)} {...rest}>
+const Col = forwardRef(({ is, children, w, ...rest }, ref) => (
+  <Box is={is} {...getWidthProps(w)} {...rest} ref={ref}>
     {children}
   </Box>
-)
+))
 
 Col.propTypes = {
   is: PropTypes.oneOfType([PropTypes.string, PropTypes.func, PropTypes.object]),

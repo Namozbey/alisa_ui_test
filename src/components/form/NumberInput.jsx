@@ -1,10 +1,10 @@
-import React from 'react'
+import React, { forwardRef } from 'react'
 import PropTypes from 'prop-types'
 
 import { withTheme } from '../theme'
 import { Touchable } from '../primitives'
 
-const NumberInput = ({
+const NumberInput = forwardRef(({
   theme,
   is,
   field,
@@ -15,7 +15,7 @@ const NumberInput = ({
   readOnly,
   invalid,
   ...rest
-}) => {
+}, ref) => {
   const describedBy = [field.errorId, field.helpId].filter(by => by)
   const isInvalid = field.invalid || invalid
 
@@ -39,10 +39,11 @@ const NumberInput = ({
       readOnly={readOnly}
       aria-invalid={isInvalid || undefined}
       aria-describedby={describedBy.length ? describedBy.join(' ') : undefined}
+      ref={ref}
       {...rest}
     />
   )
-}
+})
 
 NumberInput.propTypes = {
   theme: PropTypes.shape({}).isRequired,

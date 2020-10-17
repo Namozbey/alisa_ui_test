@@ -1,14 +1,14 @@
-import React from 'react'
+import React, { forwardRef } from 'react'
 import PropTypes from 'prop-types'
 
 import { withTheme } from '../theme'
 import { Box } from '../primitives'
 
-const CardBody = ({ theme, is, children, ...rest }) => (
-  <Box is={is} p={theme.spacing.md} {...rest}>
+const CardBody = forwardRef(({ theme, is, children, ...rest }, ref) => (
+  <Box is={is} p={theme.spacing.md} ref={ref} {...rest}>
     {children}
   </Box>
-)
+))
 
 CardBody.propTypes = {
   theme: PropTypes.shape({}).isRequired,
