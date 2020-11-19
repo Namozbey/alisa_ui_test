@@ -17,8 +17,8 @@ const Base = forwardRef(
           getTailwindClassNames(
             {
               ...rest,
-              'outine-focus': 'none',
-              'shadow-focus': 'outline',
+              'outline-focus': 'none',
+              'shadow-focus': 'none',
             },
             { prefix: theme.prefix },
           ),
