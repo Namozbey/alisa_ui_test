@@ -1,6 +1,6 @@
 {
   "name": "@darraghmckay/tailwind-react-ui",
-  "version": "0.8.4",
+  "version": "0.9.0",
   "public": true,
   "description": "React component library & UI framework for use with Tailwind CSS ",
   "repository": {
@@ -71,7 +71,7 @@
   "peerDependencies": {
     "react": "*",
     "react-dom": "*",
-    "tailwindcss": "0.x"
+    "tailwindcss": "2.x.x"
   },
   "dependencies": {
     "classnames": "^2.2.6",
@@ -116,7 +116,7 @@
     "husky": "^1.1.4",
     "jest": "^26.4.1",
     "mini-css-extract-plugin": "^0.5.0",
-    "postcss": "^7.0.2",
+    "postcss": "^8.1.8",
     "postcss-clean": "^1.1.0",
     "postcss-loader": "^3.0.0",
     "prettier": "^1.13.7",
@@ -130,7 +130,7 @@
     "rollup-plugin-node-resolve": "^3.3.0",
     "standard-version": "^9.0.0",
     "style-loader": "^0.23.0",
-    "tailwindcss": "^1.7.3",
+    "tailwindcss": "^2.0.1",
     "webpack": "^4.44.1"
   },
   "author": "Ed Mortlock",
