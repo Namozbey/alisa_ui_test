@@ -3,11 +3,14 @@ import PropTypes from 'prop-types'
 import classnames from 'classnames'
 
 import { withTheme } from '../theme'
-import { filterProps } from '../utils'
+import { filterProps, styleProps } from '../utils'
 import { getTailwindClassNames, tailwindProps, propTypes } from '../tailwind'
 
 const Base = forwardRef(
-  ({ theme, is, children, className, focusable, innerRef, ...rest }, ref) => {
+  (
+    { theme, is, children, className, bgImage, focusable, innerRef, ...rest },
+    ref,
+  ) => {
     const Component = is
 
     return (
@@ -24,6 +27,7 @@ const Base = forwardRef(
           ),
           className,
         )}
+        style={styleProps(bgImage)}
         ref={innerRef || ref}
       >
         {children}
