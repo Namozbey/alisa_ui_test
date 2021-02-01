@@ -23,7 +23,6 @@ const Touchable = forwardRef(
     return (
       <Base
         is={is}
-        select="none"
         cursor="pointer"
         pointerEvents={disabled ? 'none' : undefined}
         focusable
