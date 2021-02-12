@@ -8,10 +8,18 @@ const splitProp = prop => {
     : { utility }
 }
 
-const createClassName = ({ utility, value, variant, prefix = '' }) =>
-  `${variant ? `${variant}:` : ''}${prefix}${utility}${
-    value !== false && value !== undefined ? `-${value}` : ''
+const isNegative = value =>
+  Number.isNaN(value) ? /^-.+/.test(value) : value < 0
+
+const removeLeadingDash = value => String(value).replace(/^-/, '')
+
+export const createClassName = ({ utility, value, variant, prefix = '' }) => {
+  return `${variant ? `${variant}:` : ''}${prefix}${
+    isNegative(value) ? '-' : ''
+  }${utility}${
+    value !== false && value !== undefined ? `-${removeLeadingDash(value)}` : ''
   }`
+}
 
 export default (prop, values, prefix) => {
   const propType = typeof values

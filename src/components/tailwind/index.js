@@ -5,5 +5,8 @@ export {
   propTypes,
   propVariants,
 } from './tailwindProps'
-export { default as tailwindPropToClassName } from './tailwindPropToClassName'
+export {
+  default as tailwindPropToClassName,
+  createClassName,
+} from './tailwindPropToClassName'
 export { default as withTailwind } from './withTailwind'
