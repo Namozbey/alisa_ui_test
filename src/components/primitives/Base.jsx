@@ -8,7 +8,17 @@ import { getTailwindClassNames, tailwindProps, propTypes } from '../tailwind'
 
 const Base = forwardRef(
   (
-    { theme, is, children, className, bgImage, focusable, innerRef, ...rest },
+    {
+      theme,
+      is,
+      children,
+      className,
+      bgImage,
+      focusable,
+      innerRef,
+      style,
+      ...rest
+    },
     ref,
   ) => {
     const Component = is
@@ -27,7 +37,7 @@ const Base = forwardRef(
           ),
           className,
         )}
-        style={styleProps(bgImage)}
+        style={styleProps(style, bgImage)}
         ref={innerRef || ref}
       >
         {children}

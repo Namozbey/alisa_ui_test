@@ -1,1 +1,1 @@
-export default bgImage => (bgImage ? { ...bgImage } : {})
+export default (style, bgImage) => (bgImage ? { ...style, ...bgImage } : style)
