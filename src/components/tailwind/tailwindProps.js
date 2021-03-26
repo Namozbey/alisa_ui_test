@@ -29,12 +29,13 @@ const position = {
     PropTypes.oneOf(['0', 'y-0', 'x-0', 'auto']),
     PropTypes.number,
   ]),
-  top: PropTypes.number,
-  bottom: PropTypes.number,
-  left: PropTypes.number,
-  right: PropTypes.number,
+  top: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  bottom: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  left: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  right: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   relative: PropTypes.bool,
   static: PropTypes.bool,
+  sticky: PropTypes.bool,
 }
 
 const zIndex = {
