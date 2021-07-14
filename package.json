@@ -1,6 +1,6 @@
 {
   "name": "@darraghmckay/tailwind-react-ui",
-  "version": "0.9.5",
+  "version": "0.9.6",
   "public": true,
   "description": "React component library & UI framework for use with Tailwind CSS ",
   "repository": {

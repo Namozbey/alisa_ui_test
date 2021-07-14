@@ -83,16 +83,19 @@ const Button = forwardRef(
       props.role = 'button'
     }
 
-    if (disabled) {
-      props.opacity = 50
-    }
-
     if (fullWidth) {
       props.w = 'full'
     }
 
     return (
-      <Touchable is={is} ref={ref} inlineBlock {...props} {...rest}>
+      <Touchable
+        is={is}
+        ref={ref}
+        inlineBlock
+        {...props}
+        disabled={disabled}
+        {...rest}
+      >
         {children}
       </Touchable>
     )
