@@ -1,5 +1,5 @@
 {
-  "name": "@test/alisa-ui",
+  "name": "test-alisa-ui",
   "version": "0.0.1",
   "public": true,
   "description": "UI components which is built in tailwind",
